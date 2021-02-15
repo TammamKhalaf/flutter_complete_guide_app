@@ -9,18 +9,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+  var _questionIndex = 0;
 
-  void answerQuestion(){
+  void _answerQuestion(){
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
     print("Answer Chosen!");
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
+    var _questions = [
       "What's your favorite color!",
       "What's your favorite animal!",
       "What's your favorite car!"
@@ -32,15 +32,15 @@ class _MyAppState extends State<MyApp> {
           title: Text('My First App'),
         ),
         body: Column(children: [
-          Text(questions[questionIndex]),
+          Text(_questions[_questionIndex]),
           RaisedButton(
-            child: Text("Answer 1"),onPressed: answerQuestion,
+            child: Text("Answer 1"),onPressed: _answerQuestion,
           ),
           RaisedButton(
-            child: Text("Answer 2"),onPressed: answerQuestion,
+            child: Text("Answer 2"),onPressed: _answerQuestion,
           ),
           RaisedButton(
-            child: Text("Answer 3"),onPressed: answerQuestion,
+            child: Text("Answer 3"),onPressed: _answerQuestion,
           ),
         ]),
       ),
