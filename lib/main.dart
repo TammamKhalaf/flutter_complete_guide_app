@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide_app/result.dart';
 
-import 'answer.dart';
-import 'questions.dart';
+import 'quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,23 +13,42 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
   final _questions = const [
     {
       "questionText": "What's your favorite color!",
-      "answers": ['Red', 'Blue', 'Green', 'Orange']
+      "answers": [
+        {'text': 'Red', 'score': 10},
+        {'text': 'Blue', 'score': 8},
+        {'text': 'Green', 'score': 7},
+        {'text': 'Orange', 'score': 5},
+      ]
     },
     {
       "questionText": "What's your favorite animal!",
-      "answers": ['cat', 'rabbit', 'dog', 'bird']
+      "answers": [
+        {'text': 'cat', 'score': 1},
+        {'text': 'rabbit', 'score': 1},
+        {'text': 'dog', 'score': 1},
+        {'text': 'bird', 'score': 1},
+      ]
     },
     {
       "questionText": "What's your favorite car!",
-      "answers": ['nissan', 'bmw', 'oudi', 'totyota']
+      "answers": [
+        {'text': 'nissan', 'score': 1},
+        {'text': 'bmw', 'score': 1},
+        {'text': 'oudi', 'score': 1},
+        {'text': 'toyota', 'score': 1},
+      ]
     },
   ];
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+
+    _totalScore += score;
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -51,16 +70,12 @@ class _MyAppState extends State<MyApp> {
           title: Text('My First App'),
         ),
         body: _questionIndex < _questions.length
-            ? Column(children: [
-                Question(_questions[_questionIndex]['questionText']),
-                ...(_questions[_questionIndex]['answers'] as List<String>)
-                    .map((answer) {
-                  return Answer(_answerQuestion, answer);
-                }).toList()
-              ])
-            : Center(
-                child: Text("You Did It !"),
-              ),
+            ? Quiz(
+                questions: _questions,
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+              )
+            : Result(),
       ),
     );
   }
